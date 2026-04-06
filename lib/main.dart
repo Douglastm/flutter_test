@@ -6,6 +6,7 @@ void main() {
 
 class MeuApp extends StatelessWidget {
   const MeuApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,22 +30,40 @@ class PaginaInicialState extends State<PaginaInicial> {
   String texto = "olá, mundo!";
   int x = 0;
 
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: [
-          Text(texto),
-          ElevatedButton(
-            child: Text('mudar texto'),
-            onPressed: () {
-              setState(() {
-                x++;
-                texto = "o texto fo alterado $x vezes";
-              });
-            },
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(texto),
+            SizedBox(height: 20),
+            TextField(
+              controller: _controller,
+              decoration: InputDecoration(labelText: "Digite algo", border: OutlineInputBorder()),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text('mudar texto'),
+              onPressed: () {
+                setState(() {
+                  x++;
+                  texto = _controller.text.isEmpty ? "clicou $x vezes" : _controller.text;
+                });
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
