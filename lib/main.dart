@@ -1,3 +1,5 @@
+// import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -46,7 +48,16 @@ class PaginaInicialState extends State<PaginaInicial> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(texto),
+            CardNome("Teste", 20),
+            Container(
+              padding: EdgeInsets.all(12),
+              margin: EdgeInsets.all(32),
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height * 0.3,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(color: Colors.purple.shade300, borderRadius: BorderRadius.all(Radius.circular(35))),
+              child: Text(texto),
+            ),
             SizedBox(height: 20),
             TextField(
               controller: _controller,
@@ -65,6 +76,23 @@ class PaginaInicialState extends State<PaginaInicial> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CardNome extends StatelessWidget {
+  CardNome(this.nome, this.idade, {super.key});
+  String nome;
+  int idade;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200,
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(color: Colors.green.shade200),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text(nome), Text(idade.toString())]),
     );
   }
 }
